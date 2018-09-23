@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html" 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:a4j="http:/primefaces.org/a4j"
+   	xmlns:p="http://primefaces.org/ui"
+   	xmlns:rich="http://richfaces.org/rich">
+<h:head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width  initial-scale=1, shrink-to-fit=no"/>
+  <link href="assets/css/styles.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i,800" rel="stylesheet"/>   
+ 
+  
+ </h:head>
+<h:body  class="container-fluid"> 
+   <div class="row flex-nowrap site-header">
+    <div class="col logo">
+      <h1 class="main-logo">
+        <a href="">Department of Environment &amp; Conservation</a>
+      </h1>
+    </div>
+    <div class="col utility">
+      <div>
+        <ul class="horizontal nav-links">
+          <li>
+            <a href="">
+              <i class="fa fa-user-circle"></i> Account</a>
+          </li>
+          <li>
+            <a href="https://tdecdev.tn.gov/Single_Signon/Dashboard/Index/?returnurl=https://tdecdev.tn.gov/drhonline">
+              <i class="fa fa-sign-out"></i> Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+     
+
+<div class="row main">
+    <div class="col content">
+      <h1 class="page-title">Roles</h1>        
+            <div id="role-body" class="collapse show" data-parent="#accordion">
+            
+            
+            <div class="accordion">
+    	<div class="card-header highlighted-header" >  
+            
+            
+              <div class="card-body">
+             
+                <div class="form-group"> 
+                
+                <p:growl id="msgs" showDetail="true" />
+ 
+    			<h3 style="margin-top:0">Please choose your Role</h3>
+    		<p:accordionPanel  activeIndex="-" >
+    		
+        <p:tab title="Preparer" >
+            <h:panelGrid columns="2" cellpadding="15">
+            <h:form>
+				<p:outputLabel for="phone" value="Phone:" />
+       			<p:inputMask id="phone"  value="#{login.inputPhone}" mask="(999) 999-9999" />
+       			<input type="hidden" name="hidden1" value="Preparer" />             
+                	
+            	<h:commandButton class="btn btn-primary btn-lg" id="eventsrc" action="#{login.validateUsernamePassword}" value="Submit"></h:commandButton>
+            </h:form>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Certifier">
+            <h:panelGrid columns="2" cellpadding="15">
+            <h:form>
+			<input type="hidden" name="hidden2" value="Certifier" />       		
+					
+				<h:commandButton class="btn btn-primary btn-lg" id="eventsrc" action="#{login.validateUsernamePassword}" value="Please Click to continue"></h:commandButton> 
+			   </h:form>
+            </h:panelGrid>
+        </p:tab>
+        
+    </p:accordionPanel>
+		      </div> 
+			    
+              </div>
+            </div>
+          </div>
+       </div>
+   </div>
+  </div>
+  
+		  <div>
+		  <footer class="row site-footer">
+		    <div class="col app-info">
+		      <p>
+		        <strong>Construction Stormwater Permitting</strong> | Version 0.1.0
+		        <br /> Help Desk (888) 888-8888 |
+		        <a href="mailto:bg-help_desk@tn.gov">Email TDEC Help Desk</a>
+		      </p>
+		      <p>
+		        <small>@ Copyright 2018. Tennessee Department of Environment &amp; Conservation.</small>
+		      </p>
+		    </div>
+		    <div class="col tdec-info">
+		      <h6>Department of Environment &amp; Conservation</h6>
+		      <p>312 Rosa L. Parks Ave. Nashville, TN 37243
+		        <br />
+		        <span class="phone">(888) 891-TDEC (8332)</span> |
+		        <a href="#">Email Questions to TDEC</a>
+		      </p>
+		    </div> 
+		  </footer>
+		  </div>
+ 
+<script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  
+  <script>
+    function showDiv(prefix,chooser) 
+    {
+    	// <![CDATA[
+        for(var i=0;i<chooser.options.length;i++) 
+       // ]]>
+        {
+            var div = document.getElementById(prefix+chooser.options[i].value);
+            div.style.display = 'none';
+        }
+	
+
+            var selectedOption = (chooser.options[chooser.selectedIndex].value);
+
+            if(selectedOption == "1")
+            {
+                displayDiv(prefix,"1");
+            }
+            if(selectedOption == "2")
+            {
+                displayDiv(prefix,"2");
+            }
+    }
+
+    function displayDiv(prefix,suffix) 
+    {
+            var div = document.getElementById(prefix+suffix);
+            div.style.display = 'block';
+    }
+</script>
+
+</h:body>
+</ui:composition>

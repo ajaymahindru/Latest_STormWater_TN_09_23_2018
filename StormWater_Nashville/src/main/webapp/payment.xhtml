@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:p="http://primefaces.org/ui">	
+    
+
+	
+	
+<h:head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <meta name="viewport" content="width=device-width  initial-scale=1, shrink-to-fit=yes" />
+  <link href="assets/css/styles.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i,800" rel="stylesheet"/>
+  
+</h:head>
+
+<h:body class="container-fluid">
+
+  <div class="row flex-nowrap site-header">
+    <div class="col logo">
+      <h1 class="main-logo">
+        <a href="#">Department of Environment &amp; Conservation</a>
+      </h1>
+    </div>
+    <div class="col utility">
+      <div>
+        <ul class="horizontal nav-links">
+          <li>
+            <a href="">
+              <i class="fa fa-user-circle"></i> Account</a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa fa-sign-out"></i> Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+	
+    
+       <p:messages id="lexisNexisMsg" update="messages" closable="true"></p:messages>
+  <div class="row main">
+    <div class="col content">
+      <h1 class="page-title">Payment Gateway</h1>
+
+      <div class="card accordion-card">
+        <div class="card-header highlighted-header">
+          Payment
+        </div>
+        <div class="card-body">
+        
+   
+		
+		<form  action= "https://paydirect.ca.link2gov.com/tdeconlinepayments" method="post">
+		<input type="hidden" name="MerchantCode" value="" />
+		<input type="hidden" name="SettleCode" value="" />
+		<input type="hidden" name="ReturnUrl" value="" />
+		<input type="hidden" name="CancelUrl" value="" />
+		<input type="hidden" name="PostUrl" value="" />
+		<input type="hidden" name="UserPart1" value="" />
+		<input type="hidden" name="UserPart2" value="" />
+		<input type="hidden" name="UserPart3" value="" />
+		<input type="hidden" name="UserPart4" value="" />
+		<input type="hidden" name="UserPart5" value="" />
+		<input type="hidden" name="LineItems" value="" />
+		<button type="submit"><h3><b>Pay Now </b></h3></button>
+		</form>
+
+		
+         
+        </div>
+
+      </div>
+
+    </div>
+    
+   
+    
+  </div>
+  <div class="row site-footer">
+    <div class="col app-info">
+      <p>
+        <strong>Construction Stormwater Permitting</strong> | Version 0.1.0
+        <br /> Help Desk (888) 888-8888 |
+        <a href="mailto:bg-help_desk@tn.gov">Email TDEC Help Desk</a>
+      </p>
+      <p>
+        <small>Copyright 2018. Tennessee Department of Environment &amp; Conservation.</small>
+      </p>
+    </div>
+    <div class="col tdec-info">
+      <h6>Department of Environment &amp; Conservation</h6>
+      <p>312 Rosa L. Parks Ave. Nashville, TN 37243
+        <br />
+        <span class="phone">(888) 891-TDEC (8332)</span> |
+        <a href="#">Email Questions to TDEC</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="modal" id="register-modal" >
+    <div class="modal-dialog modal-dialog-centered" >
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h5 class="modal-title">
+            <i class="fa fa-check-circle text-light"></i>
+          </h5>
+          <button type="button" class="close" >
+            <span >times</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <h2>Success!</h2>
+          <p>You have completed core CDX account registration. Click Continue to proceed. Depending on your CGP role, you may
+            be asked to complete Identity Proofing before your role is activated.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn button-online-primary">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script>
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
+  </script>
+
+
+</h:body>
+</ui:composition>

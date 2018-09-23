@@ -1,0 +1,7 @@
+.ui-widget, .ui-widget .ui-widget {
+    font-size: 11px!important;
+}
+
+.ui-datatable.ui-datatable-resizable table {
+	width: 100%!important;
+}

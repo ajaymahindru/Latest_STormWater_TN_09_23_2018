@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:p="http://primefaces.org/ui">	
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <link href="assets/css/styles.min.css" rel="stylesheet" />
+ 
+ 
+</h:head>
+
+
+<h:body class="container-fluid">
+
+
+  <header class="row flex-nowrap site-header">
+    <div class="col logo">
+      <h1 class="main-logo">
+        <a href="#">Department of Environment &amp; Conservation</a>
+      </h1>
+    </div>
+    <div class="col utility">
+      <nav>
+        <ul class="horizontal nav-links">
+          <li>
+            <a href="">
+              <i class="fa fa-user-circle"></i> Account</a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa fa-sign-out"></i> Sign Out</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="row main">
+    <section class="col content">
+    
+    <div>
+    
+   <h:form>
+    <p:messages id="messages" autoUpdate="true" closable="true"/>
+    
+    <h:commandButton id="failedMsg" update="messages" ></h:commandButton>
+    
+      <h1 class="page-title">You validation with the State has Failed  please contact the HelpDesk -000-000-6666</h1>
+
+      <div class="card accordion-card">
+        
+
+      </div>
+
+
+
+    </h:form>
+    </div>
+    </section>
+    
+   
+    
+  </section>
+  <footer class="row site-footer">
+    <section class="col app-info">
+      <p>
+        <strong>Construction Stormwater Permitting</strong> | Version 0.1.0
+        <br /> Help Desk (888) 888-8888 |
+        <a href="mailto:bg-help_desk@tn.gov">Email TDEC Help Desk</a>
+      </p>
+      <p>
+        <small>Copyright 2018. Tennessee Department of Environment &amp; Conservation.</small>
+      </p>
+    </section>
+    <section class="col tdec-info">
+      <h6>Department of Environment &amp; Conservation</h6>
+      <p>312 Rosa L. Parks Ave. Nashville, TN 37243
+        <br />
+        <span class="phone">(888) 891-TDEC (8332)</span> |
+        <a href="#">Email Questions to TDEC</a>
+      </p>
+    </section>
+  </footer>
+  <!--  /section -->
+
+  <div class="modal" id="register-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h5 class="modal-title">
+            <i class="fa fa-check-circle text-light"></i>
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">times</span>
+          </button>
+        </div>
+    </div>
+    </div>
+  </div>
+
+ <script src="/assets/js/jquery.min.js"></script>
+  <script>
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
+  </script>
+
+
+  
+</h:body>
+
+</html>

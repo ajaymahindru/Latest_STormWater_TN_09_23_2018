@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="IdentityProofingService2Service" targetNamespace="http://www.exchangenetwork.net/wsdl/sharedcromerr/identity/2" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.exchangenetwork.net/wsdl/sharedcromerr/identity/2" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://www.exchangenetwork.net/schema/sharedcromerr/1">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.exchangenetwork.net/schema/sharedcromerr/1" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://www.exchangenetwork.net/schema/sharedcromerr/1" xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+										<xs:import namespace="http://www.w3.org/2005/05/xmlmime" schemaLocation="http://www.w3.org/2005/05/xmlmime" />
+  <xs:complexType name="CreateRequest">
+    <xs:sequence>
+      <xs:element name="securityToken" type="xs:string"/>
+      <xs:element name="activityId" type="xs:string"/>
+      <xs:element name="user" type="tns:IdentityProofingFullUserType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IdentityProofingFullUserType">
+    <xs:all>
+      <xs:element name="UserId" type="xs:string"/>
+      <xs:element name="FirstName" type="xs:string"/>
+      <xs:element name="LastName" type="xs:string"/>
+      <xs:element minOccurs="0" name="MiddleInitial" type="xs:string"/>
+      <xs:element name="MailingAddress1" type="xs:string"/>
+      <xs:element minOccurs="0" name="MailingAddress2" type="xs:string"/>
+      <xs:element name="City" type="xs:string"/>
+      <xs:element name="State" type="xs:string"/>
+      <xs:element name="Zip" type="xs:string"/>
+      <xs:element name="Phone" type="xs:string"/>
+      <xs:element name="SSNLast4" type="xs:string"/>
+      <xs:element name="DateOfBirth" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="DriverLicenseNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="DriverLicenseState" type="xs:string"/>
+    </xs:all>
+  </xs:complexType>
+  <xs:complexType name="CreateRequestResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="Authenticate">
+    <xs:sequence>
+      <xs:element name="adminId" type="xs:string"/>
+      <xs:element name="credential" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AuthenticateResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="securityToken" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GetResult">
+    <xs:sequence>
+      <xs:element name="securityToken" type="xs:string"/>
+      <xs:element name="activityId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GetResultResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="tns:IdentityProofingResultType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IdentityProofingResultType">
+    <xs:sequence>
+      <xs:element name="Status" type="tns:IdentityProofingStatusType"/>
+      <xs:element minOccurs="0" name="StatusDescription" type="xs:string"/>
+      <xs:element minOccurs="0" name="RawResults" type="tns:DocumentType"/>
+      <xs:element minOccurs="0" name="SummaryResult" type="tns:IdentityProofingSummaryResultType"/>
+      <xs:element minOccurs="0" name="SummaryResultDescription" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="xs:string"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Format" type="tns:DocumentFormatType"/>
+      <xs:element minOccurs="0" name="CreatedDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="RetentionStatus" type="tns:RetentionStatusType"/>
+      <xs:element minOccurs="0" name="RepudiationInfo" type="tns:RepudiationInfoType"/>
+      <xs:element minOccurs="0" name="Content" type="xs:base64Binary" xmime:expectedContentTypes="*/*"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RepudiationInfoType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CreateActivity">
+    <xs:sequence>
+      <xs:element name="securityToken" type="xs:string"/>
+      <xs:element name="dataflow" type="xs:string"/>
+      <xs:element name="user" type="tns:UserType"/>
+      <xs:element minOccurs="0" name="properties" type="tns:PropertiesType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UserType">
+    <xs:sequence>
+      <xs:element name="UserId" type="xs:string"/>
+      <xs:element name="FirstName" type="xs:string"/>
+      <xs:element name="LastName" type="xs:string"/>
+      <xs:element minOccurs="0" name="MiddleInitial" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PropertiesType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="Property" type="tns:PropertyType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PropertyType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Key" type="xs:string"/>
+      <xs:element minOccurs="0" name="Value" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CreateActivityResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activityId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="SharedCromerrErrorCode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="E_Unknown"/>
+      <xs:enumeration value="E_UnknownUser"/>
+      <xs:enumeration value="E_InvalidCredential"/>
+      <xs:enumeration value="E_AccountLocked"/>
+      <xs:enumeration value="E_AccessDenied"/>
+      <xs:enumeration value="E_TokenExpired"/>
+      <xs:enumeration value="E_InvalidToken"/>
+      <xs:enumeration value="E_InvalidDataflowName"/>
+      <xs:enumeration value="E_InvalidArgument"/>
+      <xs:enumeration value="E_InsufficientPrivileges"/>
+      <xs:enumeration value="E_InvalidSignature"/>
+      <xs:enumeration value="E_WrongIdPassword"/>
+      <xs:enumeration value="E_AccountExpired"/>
+      <xs:enumeration value="E_WrongAnswer"/>
+      <xs:enumeration value="E_WeakPassword"/>
+      <xs:enumeration value="E_ReachedMaxNumberOfAttempts"/>
+      <xs:enumeration value="E_InternalError"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IdentityProofingStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Pending"/>
+      <xs:enumeration value="Completed"/>
+      <xs:enumeration value="Failed"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DocumentFormatType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="XML"/>
+      <xs:enumeration value="BIN"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RetentionStatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default"/>
+      <xs:enumeration value="HeldForEnforcement"/>
+      <xs:enumeration value="Repudiated"/>
+      <xs:enumeration value="Expired"/>
+      <xs:enumeration value="Rescinded"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="IdentityProofingSummaryResultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CROMERR_Minimum"/>
+      <xs:enumeration value="CROMERR_Exceeded"/>
+      <xs:enumeration value="CROMERR_NotMet"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CreateRequest" nillable="true" type="tns:CreateRequest"/>
+  <xs:element name="CreateRequestResponse" nillable="true" type="tns:CreateRequestResponse"/>
+  <xs:element name="SharedCromerrFault" type="tns:SharedCromerrFault"/>
+  <xs:complexType name="SharedCromerrFault">
+    <xs:sequence>
+      <xs:element name="description" nillable="true" type="xs:string"/>
+      <xs:element name="errorCode" nillable="true" type="tns:SharedCromerrErrorCode"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Authenticate" nillable="true" type="tns:Authenticate"/>
+  <xs:element name="AuthenticateResponse" nillable="true" type="tns:AuthenticateResponse"/>
+  <xs:element name="GetResult" nillable="true" type="tns:GetResult"/>
+  <xs:element name="GetResultResponse" nillable="true" type="tns:GetResultResponse"/>
+  <xs:element name="CreateActivity" nillable="true" type="tns:CreateActivity"/>
+  <xs:element name="CreateActivityResponse" nillable="true" type="tns:CreateActivityResponse"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateRequest">
+    <wsdl:part name="parameters" element="ns1:CreateRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetResultResponse">
+    <wsdl:part name="parameters" element="ns1:GetResultResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Authenticate">
+    <wsdl:part name="parameters" element="ns1:Authenticate">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetResult">
+    <wsdl:part name="parameters" element="ns1:GetResult">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AuthenticateResponse">
+    <wsdl:part name="parameters" element="ns1:AuthenticateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateRequestResponse">
+    <wsdl:part name="parameters" element="ns1:CreateRequestResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateActivityResponse">
+    <wsdl:part name="parameters" element="ns1:CreateActivityResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateActivity">
+    <wsdl:part name="parameters" element="ns1:CreateActivity">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SharedCromerrException">
+    <wsdl:part name="SharedCromerrException" element="ns1:SharedCromerrFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IdentityProofingService2">
+    <wsdl:operation name="CreateRequest">
+      <wsdl:input name="CreateRequest" message="tns:CreateRequest">
+    </wsdl:input>
+      <wsdl:output name="CreateRequestResponse" message="tns:CreateRequestResponse">
+    </wsdl:output>
+      <wsdl:fault name="SharedCromerrException" message="tns:SharedCromerrException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <wsdl:input name="Authenticate" message="tns:Authenticate">
+    </wsdl:input>
+      <wsdl:output name="AuthenticateResponse" message="tns:AuthenticateResponse">
+    </wsdl:output>
+      <wsdl:fault name="SharedCromerrException" message="tns:SharedCromerrException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetResult">
+      <wsdl:input name="GetResult" message="tns:GetResult">
+    </wsdl:input>
+      <wsdl:output name="GetResultResponse" message="tns:GetResultResponse">
+    </wsdl:output>
+      <wsdl:fault name="SharedCromerrException" message="tns:SharedCromerrException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivity">
+      <wsdl:input name="CreateActivity" message="tns:CreateActivity">
+    </wsdl:input>
+      <wsdl:output name="CreateActivityResponse" message="tns:CreateActivityResponse">
+    </wsdl:output>
+      <wsdl:fault name="SharedCromerrException" message="tns:SharedCromerrException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="IdentityProofingService2ServiceSoapBinding" type="tns:IdentityProofingService2">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="CreateRequest">
+      <soap12:operation soapAction="CreateRequest" style="document"/>
+      <wsdl:input name="CreateRequest">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="CreateRequestResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SharedCromerrException">
+        <soap12:fault name="SharedCromerrException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Authenticate">
+      <soap12:operation soapAction="Authenticate" style="document"/>
+      <wsdl:input name="Authenticate">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AuthenticateResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SharedCromerrException">
+        <soap12:fault name="SharedCromerrException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetResult">
+      <soap12:operation soapAction="GetResult" style="document"/>
+      <wsdl:input name="GetResult">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetResultResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SharedCromerrException">
+        <soap12:fault name="SharedCromerrException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateActivity">
+      <soap12:operation soapAction="CreateActivity" style="document"/>
+      <wsdl:input name="CreateActivity">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="CreateActivityResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SharedCromerrException">
+        <soap12:fault name="SharedCromerrException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="IdentityProofingService2Service">
+    <wsdl:port name="IdentityProofingService2Port" binding="tns:IdentityProofingService2ServiceSoapBinding">
+      <soap12:address location="https://encromerrdev.epacdxnode.net/shared-cromerr-ws/services/IdentityProofingService2"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

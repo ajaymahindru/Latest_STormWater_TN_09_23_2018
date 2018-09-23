@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+	http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+	
+	
+	<managed-bean>
+    <managed-bean-name>Login</managed-bean-name>
+    <managed-bean-class>tn.gov.nashville.beans.Login</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>Noi</managed-bean-name>
+    <managed-bean-class>tn.gov.nashville.beans.Noi</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+     <property-name>loginBean</property-name>
+     <property-class>tn.gov.nashville.beans.Login</property-class>
+     <value>#{Login}</value>
+    </managed-property>
+</managed-bean>
+
+
+ 
+
+   
+
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>roles</from-outcome>
+			<to-view-id>/rolesaccount.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>laxisNexisForm</from-outcome>
+			<to-view-id>/registerWith_TN.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>tdecDashboard</from-outcome>
+			<to-view-id>/tdecDashboard.xhtml</to-view-id>
+		</navigation-case>
+		
+		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/rolesaccount.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>laxisNexisForm</from-outcome>
+			<to-view-id>/registerWith_TN.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>tdecDashboard</from-outcome>
+			<to-view-id>/tdecDashboard.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	
+	<navigation-rule>
+		<from-view-id>/registerWith_TN.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>laxisNexisForm</from-outcome>
+			<to-view-id>/registerWith_TN.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>tdecDashboard</from-outcome>
+			<to-view-id>/tdecDashboard.xhtml</to-view-id>		
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>lexisFailureRedirect</from-outcome>
+			<to-view-id>/redirectToSSO.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	
+	
+	<navigation-rule>
+		<from-view-id>/notice-of-intent.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>noiForm</from-outcome>
+			<to-view-id>/notice-of-intent.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>tdecDashboard</from-outcome>
+			<to-view-id>/tdecDashboard.xhtml</to-view-id>		
+		</navigation-case>
+		
+	</navigation-rule>
+	
+	
+	<navigation-rule>
+		<from-view-id>/previewNOI.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>previewNOIForm</from-outcome>
+			<to-view-id>/previewNOI.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>tdecDashboard</from-outcome>
+			<to-view-id>/tdecDashboard.xhtml</to-view-id>		
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>true</from-outcome>
+			<to-view-id>/securityQns.xhtml</to-view-id>		
+		</navigation-case>
+		
+		<navigation-case>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/previewNOI.xhtml</to-view-id>		
+		</navigation-case>
+		
+	</navigation-rule>
+	
+	
+	
+	
+	
+	
+	previewNOI.xhtml
+
+	
+	
+
+</faces-config>

@@ -1,0 +1,135 @@
+.leftAlign{
+	xls-alignment: left;
+}
+.rightAlign{
+	xls-alignment: right;
+}
+.goToBroadband{
+	xls-force-type: text; 
+	xls-font: black bold 10 Arial;
+}
+.normalDataColumn{
+	xls-font: black 10 Arial;
+	xls-border: thin black;
+	xls-alignment: left;
+}
+.normalCurrencyColumn{
+	xls-font: black 10 Arial; 
+	xls-border: thin black; 
+	xls-alignment: right;
+}
+.normalNumberColumn{
+	xls-font: black 10 Arial;
+	xls-border: thin black;
+	xls-alignment: centre;
+}
+.normalText{
+	xls-force-type: text;
+	xls-font: black 10 Arial; 
+}
+.textValue{
+	xls-force-type: text;
+}
+.numberValue{
+	xls-force-type: number;
+}
+.currencyValue{
+	xls-force-type: number;
+	xls-format-mask: $#,##0.00;
+	xls-alignment: right;
+}
+.formulaValue{
+	xls-force-type: formula;
+}
+.dateValue{
+	xls-force-type: date;
+}
+.numberCentered{
+	xls-force-type: number;
+	xls-alignment: centre;
+}
+
+
+
+.bountyHeader{
+	xls-font: black bold 10 Arial; 
+	xls-alignment: centre; 
+	xls-border: thin black;
+	xls-border-top: thick black;
+	xls-wrap:true;
+}
+
+
+
+.creditMonthlyContrib{
+	xls-font: black bold 10 Arial; 
+	xls-alignment: centre; 
+	xls-border: thick black; 
+	xls-background:light_green;
+}
+.mdfColumnHeader{
+	xls-font: black 10 Arial; 
+	xls-alignment: centre; 
+	xls-border: thin black; 
+	xls-border-top: thick black; 
+	xls-background: grey_40_percent; 
+	xls-wrap:true;
+}
+.mdfColumnFooter{
+	xls-border: none; 
+	xls-border-top: black thick;
+}
+.mdfTotalColumnHeader{
+	xls-font: black bold 10 Arial; 
+	xls-alignment: centre; 
+	xls-border-top: thick black; 
+	xls-border-right: thick black; 
+	xls-background: grey_25_percent; 
+	xls-wrap: true;
+}
+.mdfTotalColumnFooter{
+	xls-force-type: number; 
+	xls-format-mask: $#,##0.00; 
+	xls-font: black bold 10 Arial; 
+	xls-alignment: right; 
+	xls-border: thin black; 
+	xls-border-bottom: double black;
+}
+
+.affiliateColumnHeader{
+	xls-font: black 10 Arial; 
+	xls-alignment: centre; 
+	xls-border: thin black; 
+	xls-border-top: thick black; 
+	xls-background: grey_40_percent; 
+	xls-wrap:true;
+}
+.affiliateColumnFooter{
+	xls-border: none; 
+	xls-border-top: black thick;
+}
+.affiliateTotalsColumnHeader{
+	xls-font: black bold 10 Arial; 
+	xls-alignment: centre; 
+	xls-border: thick black; 
+	xls-background: grey_25_percent; 
+	xls-wrap: true;
+}
+.affiliateTotalsColumnFooter{
+	xls-border: thin black;
+	xls-border-top: thick black; 
+	xls-border-bottom: thick black; 
+	xls-background: yellow;
+}
+
+
+.commPaidColumnHeader{
+	xls-font: white bold 8 Arial; 
+	xls-alignment: centre; 
+	xls-background: blue_grey; 
+	xls-wrap:true;
+}
+.commPaidColumn{
+	xls-column-width: 3500; 
+	xls-font: black 8 Arial;
+}

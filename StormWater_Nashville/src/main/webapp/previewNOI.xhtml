@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+<h:head>
+
+      
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> 
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width  initial-scale=1, shrink-to-fit=no" />
+
+  <link rel="icon" href="assets/images/favicon.ico"/>
+  <link href="assets/css/styles.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i,800" rel="stylesheet"/>
+  
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?callback=geocodePosition"></script>
+
+
+<script type="text/javascript">
+
+
+function geocodePosition(pos) {
+	var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({
+    latLng: pos
+  }, function(responses) {
+    if (responses.length > 0) {
+      updateMarkerAddress(responses[0].formatted_address);
+    } else {
+      updateMarkerAddress('Cannot determine address at this location.');
+    }
+  });
+}
+
+function updateMarkerStatus(str) {
+  document.getElementById('markerStatus').innerHTML = str;
+}
+
+function updateMarkerPosition(latLng) {
+  document.getElementById('info').innerHTML = [
+    latLng.lat(),
+    latLng.lng()
+  ].join(', ');
+}
+
+function updateMarkerAddress(str) {
+  document.getElementById('address').innerHTML = str;
+}
+
+function initialize() {
+  var latLng = new google.maps.LatLng(36.16379643401375,  -86.7847750454888);
+  var map = new google.maps.Map(document.getElementById('mapCanvas'), {
+    zoom: 21,
+    center: latLng,
+    mapTypeId: google.maps.MapTypeId.SATELLITE
+  });
+  var marker = new google.maps.Marker({
+    position: latLng,
+    title: 'Point A',
+    map: map,
+    draggable: true
+  });
+
+  // Update current position info.
+  updateMarkerPosition(latLng);
+  geocodePosition(latLng);
+
+  // Add dragging event listeners.
+  google.maps.event.addListener(marker, 'dragstart', function() {
+    updateMarkerAddress('Dragging...');
+  });
+
+  google.maps.event.addListener(marker, 'drag', function() {
+    updateMarkerStatus('Dragging...');
+    updateMarkerPosition(marker.getPosition());
+  });
+
+  google.maps.event.addListener(marker, 'dragend', function() {
+    updateMarkerStatus('Drag ended');
+    geocodePosition(marker.getPosition());
+  });
+}
+
+// Onload handler to fire off the app.
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<script>
+
+$("div#dialog").dialog ({
+  autoOpen : false
+});
+
+$("#open").click (function (event)    // Open button Treatment
+{
+  if ($("#dialog").dialog ("isOpen")) alert ("Already open !");
+  else $("#dialog").dialog ("open");
+});
+
+$("#close").click (function (event)   // Close button Treatment
+{
+  if (!$("#dialog").dialog ("isOpen")) alert ("Already closed !");
+  else $("#dialog").dialog ("close");
+});
+
+</script>
+  
+  
+  
+</h:head>
+
+<h:body class="container-fluid">
+  <header class="row flex-nowrap site-header">
+    <div class="col logo">
+      <h1 class="main-logo">
+        <a href="#">Department of Environment &amp; Conservation</a>
+      </h1>
+    </div>
+    <div class="col utility">
+      <nav>
+        <ul class="horizontal nav-links">
+          <li>
+            <a href="">
+              <i class="fa fa-user-circle"></i> Account</a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa fa-sign-out"></i> Sign Out</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+   <div class="row main">
+    <div class="col content">
+      <h1 class="page-title">Preview of the Electronic CGP NOI Form</h1>
+      
+       <p:messages id="noiMsg" update="messages" closable="true"></p:messages>
+       
+       <h:form>
+      <div class="accordion" id="accordion">
+     
+      <!-- Permit Information -->
+      <div class="card accordion-card">
+	  <div class="card-header highlighted-header" >
+	   <label class="btn btn-link accordion-btn" data-toggle="collapse" data-target="#role-body">
+              Permit Information
+              </label>
+	 </div>
+	  <div id="role-body" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+            
+          
+        <p:tab>
+          <h:panelGrid>
+           
+           <h:messages globalOnly="true" /><rich:message id="eventsrc22" for="eventsrc" />
+             <label>Have stormwater discharges from your current construction site been covered previously under an NPDES permit?</label>
+					
+				
+				<p:selectOneRadio id="console1" value="#{dashboardNoi.npdesPermitSelect1}" required = "true" requiredMessage = "Please Check Permit Information Section: please select your option">
+		            <f:selectItem itemLabel="Yes" itemValue="Yes" />
+		            <f:selectItem itemLabel="No" itemValue="No" />
+		            <rich:message id="select1" for="console1" />
+		        </p:selectOneRadio>
+		        <br> </br>
+       			<div>
+       			<label>Provide your Master NPDES Tracking Number for this Site.</label> 
+            <h:inputText  class="form-control" id="npdesID" value="#{dashboardNoi.npdesID3}" required="true" requiredMessage="Please Check Permit Information Section: Provide your most current NPDES Tracking Number" />
+            <h:inputHidden id="noiMasterID" value="#{dashboardNoi.noiMasterID}"></h:inputHidden>
+             
+             <rich:message id="textbox" for="npdesID" /></div>
+       			<br> </br>
+       			<label>A Notice of Intent must be submitted to obtain coverage under the CGP. <strong>Requesting coverage 
+            under this permit means that an applicant has obtained and examined a copy of this permit, and thereby acknowledges 
+            applicant’s claim of ability to be in compliance with permit terms and conditions.</strong> CGP coverage is required for 
+            stormwater (SW) discharge(s) from construction activities including clearing, grading, filling and excavating 
+            (including borrow pits) of one or more acres of land.</label> 
+            	
+		        <p:selectOneRadio id="console" value="#{dashboardNoi.npdesPermitSelect2}" required = "true" requiredMessage = "Please Check Permit Information Section: please select your option">
+		            <f:selectItem itemLabel="Yes" itemValue="Yes" />
+		           
+		            <f:selectItem itemLabel="No" itemValue="No" />
+		            <rich:message id="select2" for="console" />
+		        </p:selectOneRadio>         
+                
+       
+             <label class="btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#personal-body">
+               Next
+              </label>
+              
+               </h:panelGrid>
+          
+        </p:tab>
+          
+        </div>
+      </div>
+      </div>
+
+	
+
+
+
+
+
+
+      <!-- Contact Information -->
+         <div class="card accordion-card">
+        <div class="card-header highlighted-header">
+          <label class="btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#personal-body">
+                Contact Information
+              </label>
+        </div>
+		 <div id="personal-body" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+       
+        <p:tab >
+            <h:panelGrid>
+         
+         
+            
+            <div class="form-group">
+            <label>Site Owner/Developer (Primary Permittee)<b>:</b> (Provide Person, Company or Entity that has operational or design control over construction plans or specifications)</label>
+           <h:inputText  class="form-control" id="owndev" value="#{dashboardNoi.opprimaryPermitte4}" required="true" requiredMessage="Please Check Contact Information Section: Please Enter your Owner/Developer" />
+              <rich:message id="select301" for="owndev" />
+          </div>
+          
+          <div class="form-group">
+            <label>For corporate entities only, provide correct Tennessee Secretary of State (SOS) Control Number: (an incorrect SOS control number may delay NOI processing)</label>
+          	<div class="col-15 form-group">
+            <h:inputText  class="form-control" id="owndev1" value="#{dashboardNoi.sosControlNumber5}" required="true" requiredMessage="Please Check Contact Information Section: Please Enter your SOS control number" /> <a href="https://tnbear.tn.gov/ECommerce/FilingSearch.aspx" target="_Blank">Lookup Control Number</a>
+              <rich:message id="select302" for="owndev1" />
+  
+            </div>
+     
+          </div>
+            
+   <div class="form-group">        
+<label>Please select your business ownership type</label>				 
+				<rich:select value="#{dashboardNoi.ownershipSelect6}" id="busiOwner" required="true" defaultLabel=">SELECT ONE" requiredMessage="Please Check Contact Information Section: Business ownership type is required">
+				   <f:selectItem itemLabel="Select One" itemValue="" />
+            <f:selectItem itemLabel="City Government" itemValue="City Government" />
+            <f:selectItem itemLabel="Corporation" itemValue="Corporation" />
+            <f:selectItem itemLabel="County Government" itemValue="County Government" />
+            <f:selectItem itemLabel="Federal Facility (U.S. Government)" itemValue="Federal Facility (U.S. Government)" />
+            <f:selectItem itemLabel="GOCO (Gov Owned/Contractor Operated)" itemValue="GOCO (Gov Owned/Contractor Operated)" />
+            <f:selectItem itemLabel="Mixed Ownership (e.g., Public/Private)" itemValue="Mixed Ownership (e.g., Public/Private)" />
+            <f:selectItem itemLabel="Municipal or Water District" itemValue="Municipal or Water District" />
+            <f:selectItem itemLabel="Privately Owned Facility" itemValue="Privately Owned Facility" />
+            <f:selectItem itemLabel="School District" itemValue="School District" />
+            <f:selectItem itemLabel="State Government" itemValue="State Government" />
+            <f:selectItem itemLabel="Tribal Government" itemValue="Tribal Government" />
+	                
+	            </rich:select>
+		        <rich:message id="busiOwnerMsg" for="busiOwner" /> 
+
+</div> 
+            
+            <div class="form-group">
+             <h3>Site Owner or Developer Contact Information</h3>
+             </div>
+             
+             
+             
+             
+          <div class="row"> 
+             
+          <div class="col-3 form-group">
+          <label>First Name</label>
+             <h:inputText  class="form-control"  id = "siteOwnerFirstName" value="#{dashboardNoi.siteOwnerFirstName7}"  required="true" requiredMessage="Please Check Contact Information Section: Site Owner First Name is Missing"></h:inputText>
+              <rich:message id="select444" for="siteOwnerFirstName" />
+          </div> 
+          
+          <div class="col-3 form-group">
+          <label>Middle Name</label>
+             <h:inputText  class="form-control"  id = "siteOwnerMiddleName" value="#{dashboardNoi.siteOwnerMiddleName8}"  ></h:inputText>
+              <rich:message id="select445" for="siteOwnerMiddleName" />
+          </div> 
+          
+          <div class="col-3 form-group">
+          <label>Last Name</label>
+             <h:inputText  class="form-control"  id = "siteOwnerLastName" value="#{dashboardNoi.siteOwnerLastName9}"  required="true" requiredMessage="Please Check Contact Information Section: Site Owner Last Name is Missing"></h:inputText>
+              <rich:message id="select446" for="siteOwnerLastName" />
+          </div> 
+          
+          </div>
+          
+           <div class="col-8 form-group">
+          <label>Title or Position ( The individual who is certifying this NOI submittal)</label>
+             <h:inputText  class="form-control"  id = "siteOwnerTitle" value="#{dashboardNoi.siteOwnerTitle10}"  required="true" requiredMessage="Please Check Contact Information Section: Site Owner Title is Missing" />
+              <rich:message id="select447" for="siteOwnerTitle" />
+          </div> 
+          
+          <div class="col-2 form-group">
+          <label>Company</label>
+             <h:inputText  class="form-control"  id = "siteOwnerCompany" value="#{dashboardNoi.siteOwnerCompany11}"  required="true" requiredMessage="Please Check Contact Information Section: Site Owner Company Name is Missing" />
+              <rich:message id="select448" for="siteOwnerCompany" />
+           </div>
+          
+          <div class="col-2 form-group"> 
+          <label>Address</label>
+             <h:inputText  class="form-control"  id = "siteOwnerAddress" value="#{dashboardNoi.siteOwnerAddress12}"  required="true" requiredMessage="Please Check Contact Information Section: Site Owner Address is Missing" />
+              <rich:message id="select449" for="siteOwnerAddress" />
+          </div> 
+  
+
+         
+            <div class="col-2 form-group">
+              <label>City</label>
+               <h:inputText  class="form-control" id = "siteOwnerCity" value="#{dashboardNoi.siteOwnerCity13}"   required="true" requiredMessage="Please Check Contact Information Section: Site Owner City is Missing" />           
+             <rich:message id="select74788" for ="siteOwnerCity" />
+            </div>
+            
+ 
+
+
+ <div class="col-3 form-group">
+              <label>State</label>
+             <rich:select value="#{dashboardNoi.siteOwnerstateSelect14}" id="states" required="true" defaultLabel=">>SELECT ONE" requiredMessage="Please Check Contact Information Section: Please Select Your State">
+            <f:selectItem itemLabel="Alabama" itemValue="Alabama" />
+            <f:selectItem itemLabel="Alaska" itemValue="Alaska" />
+            <f:selectItem itemLabel="Arizona" itemValue="Arizona" />
+            <f:selectItem itemLabel="Arkansas" itemValue="Arkansas" />
+            <f:selectItem itemLabel="California" itemValue="California" />
+            <f:selectItem itemLabel="Colorado" itemValue="Colorado" />
+            <f:selectItem itemLabel="Connecticut" itemValue="Connecticut" />
+            <f:selectItem itemLabel="Delaware" itemValue="Delaware" />
+            <f:selectItem itemLabel="Dist of Columbia" itemValue="Dist of Columbia" />
+            <f:selectItem itemLabel="Florida" itemValue="Florida" />
+            
+            <f:selectItem itemLabel="Georgia" itemValue="Georgia" />
+            <f:selectItem itemLabel="Hawaii" itemValue="Hawaii" />
+            <f:selectItem itemLabel="Idaho" itemValue="Idaho" />
+            <f:selectItem itemLabel="Illinois" itemValue="Illinois" />
+            <f:selectItem itemLabel="Indiana" itemValue="Indiana" />
+            <f:selectItem itemLabel="Iowa" itemValue="Iowa" />
+            <f:selectItem itemLabel="Kansas" itemValue="Kansas" />
+            <f:selectItem itemLabel="Kentucky" itemValue="Kentucky" />
+            <f:selectItem itemLabel="Louisiana" itemValue="Louisiana" />
+            <f:selectItem itemLabel="DMaine" itemValue="Maine" />
+            <f:selectItem itemLabel="Maryland" itemValue="Maryland" />
+            
+            <f:selectItem itemLabel="Massachusetts" itemValue="Massachusetts" />
+            <f:selectItem itemLabel="Michigan" itemValue="Michigan" />
+            <f:selectItem itemLabel="Minnesota" itemValue="Minnesota" />
+            <f:selectItem itemLabel="Mississippi" itemValue="Mississippi" />
+            <f:selectItem itemLabel="Missouri" itemValue="Missouri" />
+            <f:selectItem itemLabel="Montana" itemValue="Montana" />
+            
+            <f:selectItem itemLabel="Nebraska" itemValue="Nebraska" />
+            <f:selectItem itemLabel="Nevada" itemValue="Nevada" />
+            <f:selectItem itemLabel="New Hampshire" itemValue="New Hampshire" />
+            <f:selectItem itemLabel="New Jersey" itemValue="New Jersey" />
+            <f:selectItem itemLabel="New Mexico" itemValue="New Mexico" />
+            <f:selectItem itemLabel="New York" itemValue="New York" />
+            <f:selectItem itemLabel="North Carolina" itemValue="North Carolina" />
+            <f:selectItem itemLabel="North Dakota" itemValue="North Dakota" />
+            
+            <f:selectItem itemLabel="Ohio" itemValue="Ohio" />
+            <f:selectItem itemLabel="Oklahoma" itemValue="Oklahoma" />
+            <f:selectItem itemLabel="Oregon" itemValue="Oregon" />
+            <f:selectItem itemLabel="Pennsylvania" itemValue="Pennsylvania" />
+            <f:selectItem itemLabel="Rhode Island" itemValue="Rhode Island" />
+            <f:selectItem itemLabel="Montana" itemValue="Montana" />
+            
+            
+             <f:selectItem itemLabel="South Carolina" itemValue="South Carolina" />
+            <f:selectItem itemLabel="South Dakota" itemValue="South Dakota" />
+            <f:selectItem itemLabel="Tennessee" itemValue="Tennessee" />
+            <f:selectItem itemLabel="Texas" itemValue="Texas" />
+            <f:selectItem itemLabel="Utah" itemValue="Utah" />
+            <f:selectItem itemLabel="Vermont" itemValue="Vermont" />
+            <f:selectItem itemLabel="Virginia" itemValue="Virginia" />
+            <f:selectItem itemLabel="Washington" itemValue="Washington" />
+            
+             <f:selectItem itemLabel="West Virginia" itemValue="West Virginia" />
+            <f:selectItem itemLabel="Wisconsin" itemValue="Wisconsin" />
+            <f:selectItem itemLabel="Wyoming" itemValue="Wyoming" />
+            
+        </rich:select>
+		        <rich:message id="statesMsg" for="states" /> 
+		
+ 		  </div>
+
+
+
+
+          <div class="col-2 form-group">
+            <label>Zip</label>
+             <h:inputText  class="form-control" id = "siteOwnerZip" value="#{dashboardNoi.siteOwnerZip15}"   required="true" requiredMessage="Please Check Contact Information Section: Site Owner ZIP is Missing" />           
+             <rich:message id="select7444" for ="siteOwnerZip" />
+          </div>
+
+          <div class="col-2 form-group">
+              <label>Phone</label>
+              <h:inputText  class="form-control" id = "siteOwnerphone" value="#{dashboardNoi.siteOwnerphone16}"   required="true" requiredMessage="Please Check Contact Information Section: Site Owner Phone is Missing" />           
+             <rich:message id="select7445" for ="siteOwnerphone" />
+            </div>
+           
+           
+           
+          
+            <div class=" form-group">
+              <label>Ext.</label>
+              <h:inputText  class="form-control" id = "siteOwnerExt" value="#{dashboardNoi.siteOwnerphoneEXT17}"    />           
+             <rich:message id="select7446" for ="siteOwnerExt" />
+            </div>
+          
+         
+          
+          <div class="col-2 form-group">
+            <label>Email</label>
+            <h:inputText  class="form-control" id = "siteOwnerEmail" value="#{dashboardNoi.siteOwnerEmail18}"   required="true" requiredMessage="Please Check Contact Information Section: Site Owner Email is Missing" />           
+             <rich:message id="select7447" for ="siteOwnerEmail" />
+          </div>
+         
+       
+          
+          <h3>Optional Contact Information</h3>
+
+          <div class="form-group">
+              <label>First Name</label>
+              <h:inputText  class="form-control" id = "optFirstName1" value="#{dashboardNoi.opocFirstName19}"    />
+            </div>
+
+            <div class="form-group">
+              <label>Middle Initial</label>
+               <h:inputText  class="form-control" id = "optMiddleName2" value="#{dashboardNoi.opocMiddleName20}" />
+            </div>
+
+            <div class="form-group">
+              <label>Last Name</label>
+               <h:inputText  class="form-control"  id = "optLastName3"  value="#{dashboardNoi.opocLastName21}"  />
+            </div>
+        
+
+         <div class="form-group">
+            <label>Title or Position</label>
+             <h:inputText  class="form-control"   id = "optTitle22" value="#{dashboardNoi.opocTitle22}"  />
+          </div>
+
+		<div class="form-group">
+			<label>Company</label>
+            <h:inputText  class="form-control"  id="optAddress229" value="#{dashboardNoi.opocCompany23}" />
+
+          </div>
+          
+          <div class="form-group">
+			<label>Address</label>
+            <h:inputText  class="form-control"  id="optAddress2200" value="#{dashboardNoi.opocAddress24}"  />
+
+          </div>
+
+
+            <div class="form-group">
+              <label>City</label>
+               <h:inputText  class="form-control" id = "optCity22" value="#{dashboardNoi.opocCity25}"  />
+               
+            </div>
+
+           
+           
+           
+ <div class="form-group">
+              <label>State</label>
+             <rich:select value="#{dashboardNoi.opocstateSelect26}" id="opstates"  defaultLabel=">>SELECT ONE" >
+            <f:selectItem itemLabel="Alabama" itemValue="Alabama" />
+            <f:selectItem itemLabel="Alaska" itemValue="Alaska" />
+            <f:selectItem itemLabel="Arizona" itemValue="Arizona" />
+            <f:selectItem itemLabel="Arkansas" itemValue="Arkansas" />
+            <f:selectItem itemLabel="California" itemValue="California" />
+            <f:selectItem itemLabel="Colorado" itemValue="Colorado" />
+            <f:selectItem itemLabel="Connecticut" itemValue="Connecticut" />
+            <f:selectItem itemLabel="Delaware" itemValue="Delaware" />
+            <f:selectItem itemLabel="Dist of Columbia" itemValue="Dist of Columbia" />
+            <f:selectItem itemLabel="Florida" itemValue="Florida" />
+            
+            <f:selectItem itemLabel="Georgia" itemValue="Georgia" />
+            <f:selectItem itemLabel="Hawaii" itemValue="Hawaii" />
+            <f:selectItem itemLabel="Idaho" itemValue="Idaho" />
+            <f:selectItem itemLabel="Illinois" itemValue="Illinois" />
+            <f:selectItem itemLabel="Indiana" itemValue="Indiana" />
+            <f:selectItem itemLabel="Iowa" itemValue="Iowa" />
+            <f:selectItem itemLabel="Kansas" itemValue="Kansas" />
+            <f:selectItem itemLabel="Kentucky" itemValue="Kentucky" />
+            <f:selectItem itemLabel="Louisiana" itemValue="Louisiana" />
+            <f:selectItem itemLabel="DMaine" itemValue="Maine" />
+            <f:selectItem itemLabel="Maryland" itemValue="Maryland" />
+            
+            <f:selectItem itemLabel="Massachusetts" itemValue="Massachusetts" />
+            <f:selectItem itemLabel="Michigan" itemValue="Michigan" />
+            <f:selectItem itemLabel="Minnesota" itemValue="Minnesota" />
+            <f:selectItem itemLabel="Mississippi" itemValue="Mississippi" />
+            <f:selectItem itemLabel="Missouri" itemValue="Missouri" />
+            <f:selectItem itemLabel="Montana" itemValue="Montana" />
+            
+            <f:selectItem itemLabel="Nebraska" itemValue="Nebraska" />
+            <f:selectItem itemLabel="Nevada" itemValue="Nevada" />
+            <f:selectItem itemLabel="New Hampshire" itemValue="New Hampshire" />
+            <f:selectItem itemLabel="New Jersey" itemValue="New Jersey" />
+            <f:selectItem itemLabel="New Mexico" itemValue="New Mexico" />
+            <f:selectItem itemLabel="New York" itemValue="New York" />
+            <f:selectItem itemLabel="North Carolina" itemValue="North Carolina" />
+            <f:selectItem itemLabel="North Dakota" itemValue="North Dakota" />
+            
+            <f:selectItem itemLabel="Ohio" itemValue="Ohio" />
+            <f:selectItem itemLabel="Oklahoma" itemValue="Oklahoma" />
+            <f:selectItem itemLabel="Oregon" itemValue="Oregon" />
+            <f:selectItem itemLabel="Pennsylvania" itemValue="Pennsylvania" />
+            <f:selectItem itemLabel="Rhode Island" itemValue="Rhode Island" />
+            <f:selectItem itemLabel="Montana" itemValue="Montana" />
+            
+            
+             <f:selectItem itemLabel="South Carolina" itemValue="South Carolina" />
+            <f:selectItem itemLabel="South Dakota" itemValue="South Dakota" />
+            <f:selectItem itemLabel="Tennessee" itemValue="Tennessee" />
+            <f:selectItem itemLabel="Texas" itemValue="Texas" />
+            <f:selectItem itemLabel="Utah" itemValue="Utah" />
+            <f:selectItem itemLabel="Vermont" itemValue="Vermont" />
+            <f:selectItem itemLabel="Virginia" itemValue="Virginia" />
+            <f:selectItem itemLabel="Washington" itemValue="Washington" />
+            
+             <f:selectItem itemLabel="West Virginia" itemValue="West Virginia" />
+            <f:selectItem itemLabel="Wisconsin" itemValue="Wisconsin" />
+            <f:selectItem itemLabel="Wyoming" itemValue="Wyoming" />
+            
+        </rich:select>
+		        <rich:message id="opstatesMsg1" for="opstates" /> 
+		
+ 		  </div>
+           
+           
+           
+           
+           
+           
+
+
+          <div class="form-group">
+            <label>Zip</label>
+            <h:inputText  class="form-control"  id = "optZip22" value="#{dashboardNoi.opocZip27}"  />
+            
+            <rich:message id="select6" for ="optZip22" />
+          </div>
+
+            <div class="form-group">
+              <label>Phone</label>
+               <h:inputText  class="form-control" id = "optPhone22"  value="#{dashboardNoi.opocPhone28}"  />
+                <rich:message id="select10" for ="optPhone22" />
+            </div>
+            
+            <div class="form-group">
+              <label>Ext.</label>
+               <h:inputText  class="form-control"  value="#{dashboardNoi.opocPhoneExt29}" />
+            </div>
+          
+
+          <div class="form-group">
+            <label>Email</label>
+            <h:inputText  class="form-control"  id = "optEmail22" value="#{dashboardNoi.opocEmail30}"  />
+            <rich:message id="select11" for ="optEmail22" />
+          </div>
+          
+       
+					
+			<label class="btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#siteInformation-body">
+               Next
+              </label>	
+			   
+			  
+            </h:panelGrid>
+            
+        </p:tab>
+        
+        
+        </div>
+      </div>
+     </div>
+     
+     
+     
+
+      <!-- Project/Site Information -->
+          <div class="card accordion-card">
+        <div class="card-header highlighted-header">
+         <label class="btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#siteInformation-body">
+                Project / Site Information
+              </label> 
+        </div>
+		<div id="siteInformation-body" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+				
+				<p:tab  >
+            <h:panelGrid>
+            
+   
+
+         <div class="form-group">
+            <label>Project or Site Name</label>
+            <h:inputText  class="form-control" id = "projName33"  value="#{dashboardNoi.projName31}" required = "true"  requiredMessage ="Please Check Project / Site Information Section: Please Enter your Site Name"/>
+          
+           <rich:message id="select12" for ="projName33" />
+          </div>
+          
+          
+          <div class="form-group">
+              <label>Site Description</label>
+              <h:inputText  class="form-control" id = "projName44"  value="#{dashboardNoi.projDescription32}" required = "true"  requiredMessage ="Please Check Project / Site Information Section: Please Enter your Site Description"/>
+          
+           <rich:message id="select122" for ="projName44" />
+            </div>
+
+          <div class="form-group">
+            <label>Site Street Address or Location</label>
+             <h:inputText  class="form-control"  id = "projAddr"  value="#{dashboardNoi.projAddress33}" required="true" requiredMessage="Please Check Project / Site Information Section: Please Enter your Site Address"/>
+          
+          <rich:message id="select13" for ="projAddr" />
+          </div>
+
+          <div class="row">
+            <div class="col-3 form-group">
+              <label>City</label>
+               <h:inputText  class="form-control"  id = "projCity" value="#{dashboardNoi.projCity34}" required= "true" requiredMessage="Please Check Project / Site Information Section: Please Enter your Email"/>
+           
+            <rich:message id="select14" for ="projCity" />
+            </div>
+
+            <div class="col-3 form-group">
+              <label>State</label>
+              <select class="form-control" >
+                <option>Tennessee</option>
+              </select>
+            </div>
+          </div>
+          
+          
+          <div class="row">
+            <div class="col-3 form-group">
+              <label>Zip</label>
+              <h:inputText class="form-control"  id = "projzip" value="#{dashboardNoi.projZip36}" required= "true" requiredMessage="Please Check Project / Site Information Section: Please Enter your Zip"/>
+              
+              <rich:message id="select15" for ="projzip" />
+            </div>
+
+            <div class="col-3 form-group">
+              <label>County or Similar Division</label>
+              <h:inputText class="form-control"  id = "projdivision" value="#{dashboardNoi.projCounty37}" required="true" requiredMessage="Please Check Project / Site Information Section: Please Enter your County"/>
+            
+            <rich:message id="select16" for ="projdivision" />
+            </div>
+          </div>
+          
+           <br> </br>
+      
+            <div class="form-group">
+              <label>Construction Start Date</label>
+              <rich:calendar  id="startDate123" value="#{dashboardNoi.projStartDate38}" pattern="MM/dd/yyyy"
+			        		requiredMessage = "Please Check Project / Site Information Section: Start Date is required"  required = "true" showOn="button" >
+			        		<f:convertDateTime pattern="MM/dd/yyyy"/>		        		
+			        		</rich:calendar>
+			        		<rich:message id="startDate1234" for="startDate123" />
+            </div>
+            <br> </br>
+            <div class="form-group">
+              <label>Estimated End Date: </label>
+              <rich:calendar  id="endDate123" value="#{dashboardNoi.projEndDate39}" pattern="MM/dd/yyyy"
+			        		requiredMessage = "Please Check Project / Site Information Section: End Date is required"  required = "true" showOn="button" >
+			        		<f:convertDateTime pattern="MM/dd/yyyy"/>		        		
+			        		</rich:calendar>
+			        		<rich:message id="endDate1234" for="endDate123" />
+              
+            </div>
+            
+            
+            
+            <div class="row">
+            <div class="col-3 form-group">
+              <label>Acres Disturbed</label>
+              <h:inputText class="form-control" id="ead456" value="#{dashboardNoi.projEADisturbed40}" required="true" requiredMessage="Please Check Project / Site Information Section: Please Enter your Estimated Area"/>
+            <rich:message id="ead88" for="ead456" />
+            </div>
+
+            <div class="col-3 form-group">
+              <label>Total Site Acres</label>
+              <h:inputText class="form-control" id="ead123" value="#{dashboardNoi.projTotalSiteAcres41}" required="true" requiredMessage="Please Check Project / Site Information Section: Please Enter your Total Site Acres"/>
+            <rich:message id="ead99" for="ead123" />
+            </div>
+          </div>
+            
+
+
+
+
+ 			<div class="form-group">
+ 			<label>Type of Construction Site</label>
+ 			
+ 			<h:selectManyCheckbox id="basic" value="#{noi.selectedConstructionCheckBo}" >
+       		<f:selectItem itemLabel="Type of Construction Site" itemValue="Type of Construction Site"  />
+        	<f:selectItem itemLabel="Single-Family Residential" itemValue="Single-Family Residential" />
+        	<f:selectItem itemLabel="Multi-Family Residential" itemValue="Multi-Family Residential"  />
+        	<f:selectItem itemLabel="Commercial" itemValue="Commercial"  />
+        	<f:selectItem itemLabel="Industrial" itemValue="Industrial" />
+        	<f:selectItem itemLabel="Institutional" itemValue="Institutional"  />
+        	<f:selectItem itemLabel="Highway or Road" itemValue="Highway or Road"  />
+        	<f:selectItem itemLabel="Utility" itemValue="Xbox One"  />
+        	<f:selectItem itemLabel="Other" itemValue="Xbox One"  />
+        	
+    		</h:selectManyCheckbox>
+   			
+    		</div>
+           
+          
+       
+		    	<label class="btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#latlong-body">
+               Next
+              </label>
+              
+             
+            </h:panelGrid>
+        </p:tab>
+				
+        </div>
+      </div>
+      </div>
+      
+      
+
+        <!-- Latitude and Longitude -->
+    
+       <div class="card accordion-card">
+        <div class="card-header highlighted-header">
+         <label class="btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#latlong-body">
+               <b>Latitude and Logitude </b>
+              </label> 
+        </div>
+		<div id="latlong-body" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+				
+				<p:tab  >
+            <h:panelGrid>
+            
+          <p>
+            <small>Click on the map to automatically find Latitude and Longitude</small>
+            </p>
+            
+            
+            <div id="mapCanvas"></div>
+            <style>
+  #mapCanvas {
+    width: 500px;
+    height: 300px;
+    float: left;
+  }
+  #infoPanel {
+    float: left;
+    margin-left: 10px;
+  }
+  #infoPanel div {
+    margin-bottom: 5px;
+  }
+  </style>
+			    <div id="infoPanel">
+			    <div id="markerStatus"><i>Please drag the marker to get the coordinates.</i></div>
+			    <b>Current position:</b>
+			    <div id="info"></div>
+			    <b>Closest matching address:</b>
+			    <div id="address"></div>
+		   </div>
+            
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          
+         <label> Please enter Latitude and Longitude in decimal degrees. </label>
+          
+           <div class="row">
+            <div class="col-3 form-group">
+              <label>Latitude (dd.dddd) </label>
+              <h:inputText class="form-control"  id = "latitude" value="#{dashboardNoi.projLatitude51}" required="true" requiredMessage="Please Check Latitude and Logitude Section: Please Enter your Latitute">
+              <f:validateLongRange minimum="34" maximum="37" />
+              </h:inputText>
+            
+             <rich:message id="select17" for ="projLat" />
+            </div>
+
+            <div class="col-2 form-group">
+              <label>Longitude (-dd.dddd) </label>
+              <h:inputText class="form-control" id = "longitude"  value="#{dashboardNoi.projLongitude52}" required="true" requiredMessage="Please Check Latitude and Logitude Section: Please Enter your Longitude">
+               <f:validateLongRange minimum="-90" maximum="-82" />
+              </h:inputText>
+            
+            <rich:message id="select18" for ="projLong1" />
+            </div>
+          </div>
+          
+      <label class="btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#dischargewater-body">
+               Next
+              </label>
+              
+             
+            </h:panelGrid>
+        </p:tab>
+				
+        </div>
+      </div>
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+       <!-- Discharge stormwater -->
+      <div class="card accordion-card">
+	  <div class="card-header highlighted-header" >
+	   <label class="btn btn-link accordion-btn" data-toggle="collapse" data-target="#dischargewater-body">
+              Project / site discharge stormwater
+              </label>
+	 </div>
+	  <div id="dischargewater-body" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+            
+          
+        <p:tab>
+          <h:panelGrid>
+           
+           <h:messages globalOnly="true" /><rich:message id="eventsrc23" for="eventsrc" />
+           
+           <div class="form-group">
+           <label>Does your project/site discharge stormwater into a Municipal Separate Storm Sewer System (MS4)?</label>
+            <p:selectOneRadio id="console9"   value="#{dashboardNoi.projDischargeMS455}" required="true" requiredMessage="Please Check Project / site discharge stormwater Section:  Please Select your MS4 Entry">
+		            <f:selectItem itemLabel="Yes" itemValue="Yes" />
+		            <f:selectItem itemLabel="No" itemValue="No" />
+		        </p:selectOneRadio>
+           </div>
+            <br></br>
+           <!--  TODO -->
+              <div class="form-group">
+              <label>MS4 Jurisdiction</label>      
+            <h:inputText class="form-control" id = "podID199"  value="#{dashboardNoi.projMS4Jurisdiction57}" required="true" requiredMessage="Please Check Project / site discharge stormwater Section: Please Enter your MS4 Jurisdiction" />
+            <rich:message id="select199" for ="podID199" />             
+            </div>
+              <!--  TODO -->
+            <br></br>
+            
+            <div class="form-group">
+            <label>Are there any streams and/or wetlands on or adjacent to the construction site? </label>
+            <p:selectOneRadio id="console10"   value="#{dashboardNoi.projDischarge50FtDisturbance56}" required="true" requiredMessage="Please Check Project / site discharge stormwater Section: Please Select your streams and/or wetlands Entry">
+		            <f:selectItem itemLabel="Yes" itemValue="Yes" />
+		            <f:selectItem itemLabel="No" itemValue="No" />
+		        </p:selectOneRadio>
+           </div>
+
+          <h3>Recieving Waters Information</h3>
+          <p>List all of the stormwater points of discharge from your facility. Each point of discharge must be identified by
+            a unique 3-digit ID (e.g., 001, 002). Note that this information does not need to be updated in the NOI if the
+            points of discharge change during the project.</p>
+
+
+         <div class="row">
+            <div class="col-2 form-group">
+              <label>Point of Discharge ID</label>
+              
+              
+            <h:inputText class="form-control" id = "podID"  value="#{dashboardNoi.projDischargeID58}" required="true" requiredMessage="Please Check Project / site discharge stormwater Section: Please Enter your Discharge ID" />
+            <rich:message id="select19" for ="podID" />
+              
+            </div>
+
+            <div class="col form-group">
+              <label>Recieving Water</label>
+             <h:inputText class="form-control" id = "recWater"  value="#{dashboardNoi.projDischargeReceavingWater59}" required="true" requiredMessage="Please Check Project / site discharge stormwater Section: Please Enter Recieving Water" />
+            <rich:message id="select20" for ="recWater" />
+            </div>
+        </div>  
+
+         
+
+          <div class="form-group">
+            <label>Is this recieving water impaired (on the CWA 303(d) list)?</label>
+            
+            
+            <p:selectOneRadio id="console50"   value="#{dashboardNoi.projDischargeCWA61}" required="true" requiredMessage="Please Check Project / site discharge stormwater Section: Please Select your CWA 303 Entry">
+		            <f:selectItem itemLabel="Yes" itemValue="Yes" />
+		            <f:selectItem itemLabel="No" itemValue="No" />
+		        </p:selectOneRadio>
+            
+            
+          </div>
+
+          <div class="form-group">
+            
+            <label class="btn btn-link accordion-btn collapsed">Has a TMDL been completed for this recieving waterbody?</label>
+            
+            
+           <p:selectOneRadio id="console905"   value="#{dashboardNoi.projDischargeTMDL62}" required="true" requiredMessage="Please Check Project / site discharge stormwater Section: Please Select your TMDL Entry">
+		            <f:selectItem itemLabel="Yes" itemValue="Yes" />
+		            <f:selectItem itemLabel="No" itemValue="No" />
+		    </p:selectOneRadio>
+		                    
+          </div>
+           
+                      
+
+             <label class="btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#swppp-body">
+               Next
+              </label>
+              
+               </h:panelGrid>
+          
+        </p:tab>
+          
+        </div>
+      </div>
+      </div>
+
+
+  
+ 
+     <!-- SWPPP -->
+      <div class="card accordion-card">
+	  <div class="card-header highlighted-header" >
+	   <label class="btn btn-link accordion-btn" data-toggle="collapse" data-target="#swppp-body">
+              Stormwater Pollution Prevention Plan
+              </label>
+	 </div>
+	  <div id="swppp-body" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+            
+          
+        <p:tab>
+          <h:panelGrid>
+          
+           <h:messages globalOnly="true" /><rich:message id="eventsrc24" for="eventsrc" />
+   
+
+          <div class="form-group">
+            <label>Has a Stormwater Pollution Prevention Plan (SWPPP) been prepared, as required? </label>
+            
+            
+              <p:selectOneRadio id="console70"   value="#{dashboardNoi.swpppPreparedAdvance63}" required="true" requiredMessage="Please Check Project / site discharge stormwater Section: Please Select your SWPPP Entry">
+		            <f:selectItem itemLabel="Yes" itemValue="Yes" />
+		            <f:selectItem itemLabel="No" itemValue="No" />
+		        </p:selectOneRadio>
+            
+            
+          </div>
+          
+             <label class="btn btn-link accordion-btn collapsed" data-toggle="collapse" data-target="#esp-body">
+               Next
+              </label>
+              
+               </h:panelGrid>
+          
+        </p:tab>
+          
+        </div>
+      </div>
+      </div>
+      
+      
+      
+       <div class="card accordion-card">
+	  <div class="card-header highlighted-header" >
+	   <label class="btn btn-link accordion-btn" data-toggle="collapse" data-target="#cert-body">
+              Certification Information please click the below Button
+              </label>
+	 </div>
+
+      </div>
+      
+      
+      
+
+
+</div>
+
+     <h:commandButton class="btn btn-primary btn-lg" id="eventsrc" action="#{dashboardNoi.updateNoiCertify}" value="Certify\Update" data-toggle="collapse" data-target="#personal-body"></h:commandButton>&#160;&#160;&#160;&#160;
+	 
+<h:outputLink id="twoFactor" value="securityQns.xhtml"  action="#{dashboardNoi.checkCertifierRolesEmail}" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+         <f:param name="noiMasterID" value="#{report.noiMasterID}"/>
+         
+         
+    <span class="ui-button-text"><b>NEXT</b></span>
+         
+    
+        </h:outputLink>
+        
+
+            </h:form>
+    
+
+
+    </div>
+  </div>
+  
+  
+ 
+        
+            
+  
+  
+   
+  <footer class="row site-footer">
+    <section class="col app-info">
+      <p>
+        <strong>Construction Stormwater Permitting</strong> | Version 0.1.0
+        <br /> Help Desk (888) 888-8888 |
+        <a href="mailto:bg-help_desk@tn.gov">Email TDEC Help Desk</a>
+      </p>
+      <p>
+        <small>@ Copyright 2018. Tennessee Department of Environment &amp; Conservation.</small>
+      </p>
+    </section>
+    <section class="col tdec-info">
+      <h6>Department of Environment &amp; Conservation</h6>
+      <p>312 Rosa L. Parks Ave. Nashville, TN 37243
+        <br />
+        <span class="phone">(888) 891-TDEC (8332)</span> |
+        <a href="#">Email Questions to TDEC</a>
+      </p>
+    </section>
+  </footer>
+
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  
+  
+
+</h:body>
+</ui:composition>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" 
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:p="http://primefaces.org/ui">	
+    
+
+	
+	
+<h:head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <meta name="viewport" content="width=device-width  initial-scale=1, shrink-to-fit=yes" />
+  <link href="assets/css/styles.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i,800" rel="stylesheet"/>
+  
+</h:head>
+
+<h:body class="container-fluid">
+
+  <div class="row flex-nowrap site-header">
+    <div class="col logo">
+      <h1 class="main-logo">
+        <a href="#">Department of Environment &amp; Conservation</a>
+      </h1>
+    </div>
+    <div class="col utility">
+      <div>
+        <ul class="horizontal nav-links">
+          <li>
+            <a href="">
+              <i class="fa fa-user-circle"></i> Account</a>
+          </li>
+          <li>
+            <a href="">
+              <i class="fa fa-sign-out"></i> Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+	
+    
+       <p:messages id="lexisNexisMsg" update="messages" closable="true"></p:messages>
+  <div class="row main">
+    <div class="col content">
+      <h1 class="page-title">Identity Proofing</h1>
+
+      <div class="card accordion-card">
+        <div class="card-header highlighted-header">
+          Identity Verification
+        </div>
+        <div class="card-body">
+        
+        
+          <h3>Electronic Identity Proofing</h3>
+          <p><b>The following information will be used for identity proofing, it will not be stored.</b></p>
+          
+          <h:form>
+         
+          <div class="form-group">
+            <label>Home Mailing Address (line 1)</label>
+            <h:inputText  class="form-control" id="homeAdd_Line1" value="#{registerWithTNGov.address1}" required = "true" requiredMessage = "Address Line1 Is Empty"> 
+            </h:inputText>
+            <rich:message id="homeAdd_Line1MSG" for="homeAdd_Line1" />
+          </div>
+
+          <div class="form-group">
+            <label>Home Mailing Address (line 2)</label>
+             <h:inputText  class="form-control" id="homeAdd_Line2" value="#{registerWithTNGov.address2}">
+             </h:inputText>
+         
+          </div>
+
+          <div class="row">
+            <div class="col-3 form-group">
+              <label>City</label>
+              <h:inputText  class="form-control" id="city" value="#{registerWithTNGov.city}" required = "true" requiredMessage = "Please Enter City"></h:inputText>
+          <rich:message id="cityMSG" for="city" />
+            </div>
+
+            <div class="col-3 form-group">
+            
+            <label>State</label>
+              <h:inputText  class="form-control" id="state" value="#{registerWithTNGov.state}" required = "true" requiredMessage = "Please Enter State" >
+              </h:inputText>
+           <rich:message id="stateMSG" for="state" />
+            </div>
+            
+            
+            <div class="col-3 form-group">
+              <label>Zip / Postal Code</label>
+              <h:inputText  class="form-control" id="zipcode" value="#{registerWithTNGov.zipcode}" required = "true" requiredMessage = "ZipCode"></h:inputText>
+             <rich:message id="zipcodeMSG" for="zipcode" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4 form-group">
+
+              <label>Date of Birth</label> &#160;&#160;&#160;
+              
+            
+              <rich:calendar  id="bitrhDate" value="#{registerWithTNGov.dateofBirth}" pattern="MM/dd/yyyy"
+			        		requiredMessage = "Date is required"  required = "true" showOn="button" >
+			        		<f:convertDateTime pattern="MM/dd/yyyy"/>		        		
+			        		</rich:calendar>
+			        		<rich:message id="bitrhDateMSG" for="bitrhDate" />
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-3 form-group">
+              <label>SSN Last 4</label>
+               <h:inputText class="form-control" id="last4" value="#{registerWithTNGov.last4ssn}" required="true" requiredMessage="Please Enter Last 4 of SSN"></h:inputText>
+             <rich:message id="last4MSG" for="last4" />
+            </div>
+
+            <div class="col-3 form-group">
+              <label>Phone Number</label>
+              <h:inputText  class="form-control" id="phoneNumber" value="#{registerWithTNGov.phonenumber}" required="true" requiredMessage="Please Enter PhoneNumber "></h:inputText>
+              <rich:message id="phoneNumberMSG" for="phoneNumber" /> 
+            </div>
+          </div>
+
+
+
+<br></br>
+<br></br>
+ <p align ="center"><B>Please select  the Five Security Question  and input your Answers  </B> </p>
+ <div class="row">
+
+            <div class="col-2 form-group">
+            
+            <label>Security Question 1</label>
+             <rich:select value="#{registerWithTNGov.securityQues1}" id="opstates1"  defaultLabel=">>SELECT ONE" >
+            <f:selectItem itemLabel="What is your Favorite pet's name" itemValue="What is your Favorite pets name" />
+            <f:selectItem itemLabel="What is the last name of your favourite teacher" itemValue="What is the last name of your favourite teacher" />
+            <f:selectItem itemLabel="What is your best friend's last name" itemValue="What is your best friends last name" />
+            <f:selectItem itemLabel="What is the name of the hospital where you were born" itemValue ="What is the name of the hospital where you were born" />
+     
+        </rich:select>
+		        <rich:message id="opstatesMsg1" for="opstates1" /> 
+		        
+		        <h:inputText  class="form-control" id="state1" value="#{registerWithTNGov.securityAns1}" required = "true" requiredMessage = "Please Enter security Question1" >
+              </h:inputText>
+           <rich:message id="stateMSG1" for="state1" />
+            
+            </div>
+            
+            
+            <div class="col-2 form-group">
+            
+            <label>Security Question 2</label>
+             <rich:select value="#{registerWithTNGov.securityQues2}" id="opstates2"  defaultLabel=">>SELECT ONE" >
+            <f:selectItem itemLabel="who is your favorite author" itemValue="who is your favorite author" />
+            <f:selectItem itemLabel="what is your favorite song" itemValue="what is your favorite song" />
+            <f:selectItem itemLabel="what is your favorite hobby" itemValue="what is your favorite hobby" />
+            <f:selectItem itemLabel="what is your favorite movie" itemValue="what is your favorite movie" />
+          
+    
+        </rich:select>
+		        <rich:message id="opstatesMsg2" for="opstates2" /> 
+		        
+		        <h:inputText  class="form-control" id="state2" value="#{registerWithTNGov.securityAns2}" required = "true" requiredMessage = "Please Enter security Question2" >
+              </h:inputText>
+           <rich:message id="stateMSG2" for="state2" />
+            
+            </div>
+
+            
+              <div class="col-2 form-group">
+            
+            <label>Security Question 3</label>
+             <rich:select value="#{registerWithTNGov.securityQues3}" id="opstates3"  defaultLabel=">>SELECT ONE" >
+            <f:selectItem itemLabel="What is the name of your home town newspaper" itemValue="What is the name of your home town newspaper" />
+            <f:selectItem itemLabel="what is your favorite book" itemValue="what is your favorite book" />
+            <f:selectItem itemLabel="where did you first meet your spouse?" itemValue="where did you first meet your spouse?" />
+            <f:selectItem itemLabel="what is the model of your first car" itemValue="what is the model of your first car" />
+          
+    
+        </rich:select>
+		        <rich:message id="opstatesMsg3" for="opstates3" /> 
+		        
+		        <h:inputText  class="form-control" id="state3" value="#{registerWithTNGov.securityAns3}" required = "true" requiredMessage = "Please Enter security Question3" >
+              </h:inputText>
+           <rich:message id="stateMSG3" for="state3" />
+            
+            </div>
+            
+            
+            
+              <div class="col-2 form-group">
+            
+            <label>Security Question 4</label>
+             <rich:select value="#{registerWithTNGov.securityQues4}" id="opstates4"  defaultLabel=">>SELECT ONE" >
+            <f:selectItem itemLabel="Where did you graduate from high school?" itemValue="Where did you graduate from high school?" />
+            <f:selectItem itemLabel="what was your high school's mascot?" itemValue="what was your high schools mascot?" />
+            <f:selectItem itemLabel="which street your high school located on?" itemValue="which street your high school located on?" />
+          
+    
+        </rich:select>
+		        <rich:message id="opstatesMsg4" for="opstates4" /> 
+		        
+		        <h:inputText  class="form-control" id="state4" value="#{registerWithTNGov.securityAns4}" required = "true" requiredMessage = "Please Enter security Question4" >
+              </h:inputText>
+           <rich:message id="stateMSG4" for="state4" />
+            
+            </div>
+            
+              <div class="col-2 form-group">
+            
+            <label>Security Question 5</label>
+             <rich:select value="#{registerWithTNGov.securityQues5}" id="opstates5"  defaultLabel=">>SELECT ONE" >
+            <f:selectItem itemLabel="what is your favorite TV Show?" itemValue="what is your favorite TV Show?" />
+            <f:selectItem itemLabel="who is your favorite all-time entertainer" itemValue="who is your favorite all-time entertainer" />
+            <f:selectItem itemLabel="what is your favorite vacation destination" itemValue="what is your favorite vacation destination" />
+            
+        </rich:select>
+		        <rich:message id="opstatesMsg5" for="opstates5" /> 
+		        
+		        <h:inputText  class="form-control" id="state5" value="#{registerWithTNGov.securityAns5}" required = "true" requiredMessage = "Please Enter security Question5" >
+              </h:inputText>
+           <rich:message id="stateMSG5" for="state5" />
+            
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+
+
+
+
+
+
+
+         <div class="form-group">
+            <div class="col-6 form-check">      
+                <p><input type="checkbox"  name="terms" required = "required" /> I agree to the <a href="StormWaterAgreement.html">Electronic Signature Agreement</a>.</p>
+            </div>
+          </div> 
+         
+          <h:commandButton action="#{registerWithTNGov.validateLexisNexis}"  id="eventsrc"  class="btn btn-primary" value="Verif &amp; Sign"></h:commandButton>
+          
+           </h:form>
+        </div>
+
+      </div>
+
+    </div>
+    
+   
+    
+  </div>
+  <div class="row site-footer">
+    <div class="col app-info">
+      <p>
+        <strong>Construction Stormwater Permitting</strong> | Version 0.1.0
+        <br /> Help Desk (888) 888-8888 |
+        <a href="mailto:bg-help_desk@tn.gov">Email TDEC Help Desk</a>
+      </p>
+      <p>
+        <small>Copyright 2018. Tennessee Department of Environment &amp; Conservation.</small>
+      </p>
+    </div>
+    <div class="col tdec-info">
+      <h6>Department of Environment &amp; Conservation</h6>
+      <p>312 Rosa L. Parks Ave. Nashville, TN 37243
+        <br />
+        <span class="phone">(888) 891-TDEC (8332)</span> |
+        <a href="#">Email Questions to TDEC</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="modal" id="register-modal" >
+    <div class="modal-dialog modal-dialog-centered" >
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h5 class="modal-title">
+            <i class="fa fa-check-circle text-light"></i>
+          </h5>
+          <button type="button" class="close" >
+            <span >times</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <h2>Success!</h2>
+          <p>You have completed core CDX account registration. Click Continue to proceed. Depending on your CGP role, you may
+            be asked to complete Identity Proofing before your role is activated.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn button-online-primary">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script>
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
+  </script>
+
+
+</h:body>
+</ui:composition>
